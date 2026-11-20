@@ -15,7 +15,7 @@ Check: `ls ~/.agents/skills/ielts-preparation/scripts/ielts.py`. If it is missin
 npx skills add favianharya/ielts-skills -g -y
 ```
 
-This installs `ielts-preparation` and `ielts-setup` into `~/.agents/skills/` (read by omp and other agents) and links them for detected agents such as Claude Code. Without Node, clone instead and let setup do the linking:
+This installs `ielts-preparation` and `ielts-setup` into `~/.agents/skills/` (read by omp and other agents) and links them for detected agents such as Claude Code. "Failed to install" lines for agents without global-skill support (e.g. PromptScript) are harmless. Without Node, clone instead and let setup do the linking:
 
 ```
 git clone https://github.com/favianharya/ielts-skills ~/.agents/ielts-skills

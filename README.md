@@ -13,6 +13,8 @@ An IELTS coach for AI coding agents (Claude Code, omp, and other agents that rea
 npx skills add favianharya/ielts-skills -g -y
 ```
 
+"Failed to install" lines for agents without global-skill support (e.g. PromptScript) are harmless; the skills land in `~/.agents/skills/` and are linked for Claude Code.
+
 Then, in your agent, say **"set up IELTS"**. The `ielts-setup` skill runs `scripts/setup.py --check`, shows what it will change, asks before editing your shell rc file, and runs a four-question intake to create your profile. To run the script yourself:
 
 ```bash

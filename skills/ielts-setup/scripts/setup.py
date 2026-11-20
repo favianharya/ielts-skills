@@ -184,7 +184,13 @@ def step_models(overrides, check):
 
 
 def default_rc():
-    shell = os.path.basename(os.environ.get("SHELL", ""))
+    # Agents often run with an empty or different $SHELL; the login shell is what the user's terminal opens.
+    try:
+        import pwd  # not available on Windows
+        shell = pwd.getpwuid(os.getuid()).pw_shell
+    except (ImportError, KeyError):
+        shell = ""
+    shell = os.path.basename(shell or os.environ.get("SHELL", ""))
     return HOME / {"zsh": ".zshrc", "bash": ".bashrc"}.get(shell, ".profile")
 
 
