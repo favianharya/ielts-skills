@@ -86,5 +86,5 @@ Run `python3 scripts/ielts.py status` and tell the user:
 
 ## Update and uninstall
 
-- Update: `npx skills update -g`, then `setup.py --check`.
+- Update: `npx skills add favianharya/ielts-skills -g -y` (re-adding overwrites with the latest version; `npx skills update -g` also walks every other installed skill and can stall), then `setup.py --check`.
 - Uninstall: `npx skills remove ielts-preparation ielts-setup -g -y`, delete the marked block from the rc file (a backup sits next to it as `.zshrc.ielts-backup-*`), and delete `~/.ielts/` only if the user wants their progress gone.
