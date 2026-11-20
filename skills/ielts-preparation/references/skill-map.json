@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "about": "IELTS micro-skill map. Every piece of feedback, every drill, every review item, and every logged lost mark is tagged with one of these skill ids, so the same weakness is counted once across papers. 'papers' = where the skill costs marks; 'criteria' = the descriptor it feeds; 'codes' = error codes modules use when tagging (a tag may be a skill id or a code); 'drills' = ids in references/drills.md.",
+  "papers": {
+    "L": "Listening",
+    "R": "Reading",
+    "W1": "Writing Task 1",
+    "W2": "Writing Task 2",
+    "S": "Speaking"
+  },
+  "criteria": {
+    "L": "Listening raw score",
+    "R": "Reading raw score",
+    "W.TA": "Task Achievement (Task 1)",
+    "W.TR": "Task Response (Task 2)",
+    "W.CC": "Coherence & Cohesion (Writing)",
+    "W.LR": "Lexical Resource (Writing)",
+    "W.GRA": "Grammatical Range & Accuracy (Writing)",
+    "S.FC": "Fluency & Coherence",
+    "S.LR": "Lexical Resource (Speaking)",
+    "S.GRA": "Grammatical Range & Accuracy (Speaking)",
+    "S.P": "Pronunciation"
+  },
+  "skills": [
+    {"id": "x.paraphrase", "name": "Recognising and producing paraphrase", "papers": ["L", "R", "W1", "W2", "S"], "criteria": ["L", "R", "W.LR", "S.LR"], "codes": ["PARA"], "drills": ["paraphrase-match", "paraphrase-produce"], "detect": "Missed answer because question wording differed from the text/recording; or repeats prompt words in writing/speaking."},
+    {"id": "x.collocation", "name": "Natural collocation and word choice", "papers": ["W1", "W2", "S"], "criteria": ["W.LR", "S.LR"], "codes": ["WC", "COLL"], "drills": ["collocation-fix", "vocab-review"], "detect": "Grammatical but unnatural combinations (do a mistake, kill the spare time)."},
+    {"id": "x.word-form", "name": "Word form / derivation", "papers": ["L", "R", "W1", "W2", "S"], "criteria": ["L", "R", "W.LR", "W.GRA", "S.LR"], "codes": ["WF"], "drills": ["word-family-ladder"], "detect": "Right root, wrong part of speech; completion answers that don't fit the gap's grammar."},
+    {"id": "x.spelling", "name": "Spelling of answer and essay words", "papers": ["L", "R", "W1", "W2"], "criteria": ["L", "R", "W.LR"], "codes": ["SPELL"], "drills": ["spelling-dictation", "vocab-review"], "detect": "Heard/found the right word but misspelt it; LR spelling errors."},
+    {"id": "x.plural", "name": "Plural and countability", "papers": ["L", "R", "W1", "W2", "S"], "criteria": ["L", "R", "W.GRA", "S.GRA"], "codes": ["NUM", "PLURAL"], "drills": ["plural-gap-check", "grammar-ladder"], "detect": "Missing -s after numbers/quantifiers; completion answers marked wrong for singular/plural."},
+    {"id": "x.idea-development", "name": "Extending a point with reason, example, consequence", "papers": ["W1", "W2", "S"], "criteria": ["W.TA", "W.TR", "S.FC"], "codes": ["DEV"], "drills": ["peel-builder", "extend-the-answer"], "detect": "Ideas listed but not explained; one-line GT bullets; Part 1/3 answers that stop after one sentence."},
+    {"id": "x.cohesion", "name": "Linking, referencing, paragraph logic", "papers": ["W1", "W2", "S"], "criteria": ["W.CC", "S.FC"], "codes": ["CONJ", "COH"], "drills": ["cohesion-repair"], "detect": "Mechanical or wrong linkers, double connectors (although...but), unclear it/this/they, no clear paragraph focus."},
+    {"id": "x.register", "name": "Tone and formality for the reader/situation", "papers": ["W1", "W2", "S"], "criteria": ["W.TA", "W.LR", "S.LR"], "codes": ["REG"], "drills": ["register-switch"], "detect": "Informal language in formal letters/essays, tone drift, wrong greeting/closing pair."},
+    {"id": "x.less-common-vocab", "name": "Less common and idiomatic vocabulary used precisely", "papers": ["W1", "W2", "S"], "criteria": ["W.LR", "S.LR"], "codes": ["LCV"], "drills": ["upgrade-the-word", "vocab-review"], "detect": "Only common words; or 'fancy' words used imprecisely (caps LR at 6)."},
+
+    {"id": "l.locate", "name": "Keeping your place in the recording", "papers": ["L"], "criteria": ["L"], "codes": ["LOC"], "drills": ["signpost-tracking"], "detect": "Never heard the answer sentence; lost track after a missed question; lost the speaker in Section 3."},
+    {"id": "l.distractor", "name": "Rejecting corrected/rejected/other-speaker information", "papers": ["L"], "criteria": ["L"], "codes": ["DIST"], "drills": ["distractor-spotting"], "detect": "Wrote information that was later corrected, rejected, or belonged to another speaker/time."},
+    {"id": "l.numbers", "name": "Numbers, dates, prices, spelled names", "papers": ["L"], "criteria": ["L"], "codes": ["NUMBER"], "drills": ["number-dictation", "spelling-dictation"], "detect": "13 vs 30, 15 vs 50, wrong date/time format, misspelt spelled-out names."},
+    {"id": "l.map", "name": "Map / plan directions", "papers": ["L"], "criteria": ["L"], "codes": ["MAP"], "drills": ["direction-follow"], "detect": "Wrong label on map/plan questions; lost the starting point or orientation."},
+    {"id": "l.connected-speech", "name": "Decoding connected speech (linking, weak forms, elision)", "papers": ["L"], "criteria": ["L"], "codes": ["CS"], "drills": ["chunk-dictation"], "detect": "Understands the transcript but could not hear it in the audio."},
+    {"id": "l.attitude", "name": "Opinion, agreement, and decision in discussions", "papers": ["L"], "criteria": ["L"], "codes": ["ATT"], "drills": ["distractor-spotting"], "detect": "Section 3 MC/matching errors: suggestion vs final decision, who agreed with whom."},
+    {"id": "l.format", "name": "Answer format and word limits", "papers": ["L", "R"], "criteria": ["L", "R"], "codes": ["FMT"], "drills": ["word-limit-check"], "detect": "Over the word limit, incomplete numbers, hyphen errors."},
+
+    {"id": "r.tfng", "name": "True/False/Not Given and Yes/No/Not Given decisions", "papers": ["R"], "criteria": ["R"], "codes": ["TFNG", "YNNG"], "drills": ["tfng-decision"], "detect": "Confusing False with Not Given; using outside knowledge; missing qualifiers (some/all/always)."},
+    {"id": "r.headings", "name": "Main idea of a paragraph (matching headings)", "papers": ["R"], "criteria": ["R"], "codes": ["HEAD"], "drills": ["heading-match"], "detect": "Picking a heading that matches a detail or a repeated word rather than the whole paragraph."},
+    {"id": "r.scan", "name": "Scanning for specific information", "papers": ["R"], "criteria": ["R"], "codes": ["SCAN", "MATCHINFO"], "drills": ["scan-race"], "detect": "Running out of time on matching information/features; can't find names, numbers, dates fast."},
+    {"id": "r.completion", "name": "Summary/sentence/table completion from the text", "papers": ["R"], "criteria": ["R"], "codes": ["COMP"], "drills": ["completion-grammar-fit", "word-limit-check"], "detect": "Right area of text, wrong word; answer doesn't fit the gap grammatically; paraphrased summary not mapped."},
+    {"id": "r.mcq", "name": "Multiple choice elimination", "papers": ["R", "L"], "criteria": ["R", "L"], "codes": ["MCQ"], "drills": ["mcq-eliminate"], "detect": "Choosing the option with matching words rather than matching meaning."},
+    {"id": "r.timing", "name": "Time management across 3 passages", "papers": ["R"], "criteria": ["R"], "codes": ["TIME"], "drills": ["timed-passage"], "detect": "Unfinished questions; Passage 3 rushed; too long on one question."},
+
+    {"id": "w1.overview", "name": "Clear overview of main trends/stages/differences", "papers": ["W1"], "criteria": ["W.TA"], "codes": ["OVR"], "drills": ["overview-sprint"], "detect": "No overview, overview buried in details, or overview that lists data."},
+    {"id": "w1.selection", "name": "Selecting and comparing key features", "papers": ["W1"], "criteria": ["W.TA", "W.CC"], "codes": ["SEL"], "drills": ["feature-picking"], "detect": "Lists every figure; misses a category; describes without comparing."},
+    {"id": "w1.data-language", "name": "Accurate trend, comparison, process, and map language", "papers": ["W1"], "criteria": ["W.TA", "W.LR", "W.GRA"], "codes": ["DATA"], "drills": ["trend-sentence", "process-map-language"], "detect": "Wrong figures, wrong prepositions with numbers (rose by/to), repetitive increase/decrease."},
+    {"id": "w1.gt-letter", "name": "GT letter: purpose and full bullet coverage", "papers": ["W1"], "criteria": ["W.TA"], "codes": ["GTL"], "drills": ["letter-bullet-expand", "register-switch"], "detect": "Unclear purpose, missing or one-line bullets, no clear request/next step."},
+
+    {"id": "w2.task-analysis", "name": "Answering every part of the question", "papers": ["W2"], "criteria": ["W.TR"], "codes": ["TASK"], "drills": ["prompt-dissection"], "detect": "Only part of a two-part/discuss-both-views question answered; off-topic drift."},
+    {"id": "w2.position", "name": "Clear, consistent position and thesis", "papers": ["W2"], "criteria": ["W.TR", "W.CC"], "codes": ["POS"], "drills": ["thesis-sprint"], "detect": "Position unclear, changes between intro and conclusion, or thesis restates the prompt only."},
+    {"id": "w2.paragraphing", "name": "One controlling idea per body paragraph", "papers": ["W2"], "criteria": ["W.CC", "W.TR"], "codes": ["PARA-UNITY"], "drills": ["topic-sentence-match"], "detect": "Paragraphs with two unrelated ideas, or ideas split across paragraphs."},
+
+    {"id": "s.extension", "name": "Extending answers naturally (Parts 1 and 3)", "papers": ["S"], "criteria": ["S.FC"], "codes": ["EXT"], "drills": ["extend-the-answer"], "detect": "One-sentence answers; answers padded with filler rather than reasons/examples."},
+    {"id": "s.long-turn", "name": "Part 2 long turn: cover the card, sustain 2 minutes", "papers": ["S"], "criteria": ["S.FC", "S.LR"], "codes": ["P2"], "drills": ["cue-card-sprint", "story-bank"], "detect": "Stops before 2 minutes, skips bullets, or recites a memorised script."},
+    {"id": "s.abstract", "name": "Part 3 abstract reasoning: compare, speculate, generalise", "papers": ["S"], "criteria": ["S.FC", "S.GRA", "S.LR"], "codes": ["ABS"], "drills": ["abstract-frames"], "detect": "Personal anecdotes instead of general views; can't discuss past/future trends."},
+    {"id": "s.fluency", "name": "Hesitation, fillers, self-correction", "papers": ["S"], "criteria": ["S.FC"], "codes": ["FLU"], "drills": ["extend-the-answer", "cue-card-sprint"], "detect": "Long pauses searching for language, repetition, 'how to say'."},
+    {"id": "s.pron-endings", "name": "Final consonants and -s/-ed endings", "papers": ["S"], "criteria": ["S.P", "S.GRA"], "codes": ["PRON-END"], "drills": ["minimal-pairs"], "detect": "Dropped word endings (common for Indonesian speakers): 'work' for 'worked', 'book' for 'books'."},
+    {"id": "s.pron-sounds", "name": "Individual sounds (th, v/f, sh/s, vowel length)", "papers": ["S"], "criteria": ["S.P"], "codes": ["PRON-SND"], "drills": ["minimal-pairs"], "detect": "th → t/d, v → f, ship/sheep confusions."},
+    {"id": "s.pron-stress", "name": "Word stress, sentence stress, intonation, chunking", "papers": ["S"], "criteria": ["S.P", "S.FC"], "codes": ["PRON-STR"], "drills": ["stress-marking"], "detect": "Flat or syllable-timed rhythm; wrong stress (de-VE-lop, PHO-to-graph vs pho-TO-gra-phy)."},
+
+    {"id": "g.articles", "name": "Articles and determiners", "papers": ["W1", "W2", "S"], "criteria": ["W.GRA", "S.GRA"], "codes": ["ART"], "drills": ["grammar-ladder"], "detect": "Missing a/the before singular countable nouns; 'the' for general classes."},
+    {"id": "g.agreement", "name": "Subject–verb agreement", "papers": ["W1", "W2", "S"], "criteria": ["W.GRA", "S.GRA"], "codes": ["SVA"], "drills": ["grammar-ladder"], "detect": "He go / the results shows."},
+    {"id": "g.tense-aspect", "name": "Tense and aspect", "papers": ["W1", "W2", "S"], "criteria": ["W.GRA", "S.GRA"], "codes": ["TENSE", "ASP"], "drills": ["grammar-ladder", "tense-timeline"], "detect": "Past events in present; since/for without present perfect; wrong tense in Task 1 time periods."},
+    {"id": "g.verb-form", "name": "Verb patterns, modals, copula", "papers": ["W1", "W2", "S"], "criteria": ["W.GRA", "S.GRA"], "codes": ["VF", "MOD"], "drills": ["grammar-ladder"], "detect": "enjoy to read, can goes, missing 'be' (She very busy), will in if-clauses."},
+    {"id": "g.prepositions", "name": "Prepositions and dependent prepositions", "papers": ["W1", "W2", "S"], "criteria": ["W.GRA", "W.LR", "S.GRA"], "codes": ["PREP"], "drills": ["grammar-ladder", "collocation-fix"], "detect": "depend of, discuss about, in/on/at confusion, rose by/to."},
+    {"id": "g.word-order", "name": "Word order", "papers": ["W1", "W2", "S"], "criteria": ["W.GRA", "S.GRA"], "codes": ["WO"], "drills": ["grammar-ladder"], "detect": "a car red; I know where is he."},
+    {"id": "g.pronouns", "name": "Pronouns and reference (he/she, it/there)", "papers": ["W1", "W2", "S"], "criteria": ["W.GRA", "W.CC", "S.GRA"], "codes": ["PRON"], "drills": ["grammar-ladder"], "detect": "he/she swaps, missing dummy it/there, redundant pronouns."},
+    {"id": "g.sentence-boundaries", "name": "Sentence boundaries (run-ons, fragments, comma splices)", "papers": ["W1", "W2"], "criteria": ["W.GRA"], "codes": ["PUNC"], "drills": ["sentence-boundary-fix"], "detect": "Two clauses joined by a comma; fragments starting with Because/Which."},
+    {"id": "g.complex-range", "name": "Range of complex structures used accurately", "papers": ["W1", "W2", "S"], "criteria": ["W.GRA", "S.GRA"], "codes": ["RANGE"], "drills": ["sentence-combining"], "detect": "Only simple sentences (caps GRA at 5–6); or complex attempts that break down."}
+  ]
+}
