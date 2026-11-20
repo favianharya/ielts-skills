@@ -38,6 +38,10 @@ TIERS = {
     "smol": ("low", ["claude-haiku-5-5", "claude-haiku-4-5"]),
 }
 EFFORT_ORDER = ["minimal", "low", "medium", "high", "xhigh", "max"]
+# omp's anthropic provider honours these; a proxy set in the shell (e.g. a company LiteLLM gateway) would
+# silently reroute requests away from the user's own Claude login, so the alias and the probes drop them.
+PROXY_ENV = ("ANTHROPIC_BASE_URL", "ANTHROPIC_AUTH_TOKEN", "ANTHROPIC_API_KEY")
+CLEAN_ENV = {k: v for k, v in os.environ.items() if k not in PROXY_ENV}
 BLOCK_START = "# >>> ielts-skills (managed by ielts-setup; re-run setup to change) >>>"
 BLOCK_END = "# <<< ielts-skills <<<"
 
@@ -123,10 +127,10 @@ def step_pdfs(check):
 
 
 def catalog():
-    r = subprocess.run(["omp", "models", "--json"], capture_output=True, text=True, timeout=120)
+    r = subprocess.run(["omp", "models", "--json"], capture_output=True, text=True, timeout=120, env=CLEAN_ENV)
     if r.returncode:
         return []
-    return [m for m in json.loads(r.stdout).get("models", []) if m.get("kind") == "chat"]
+    return [m for m in json.loads(r.stdout).get("models", []) if m.get("kind") == "chat" and m.get("provider") == "anthropic"]
 
 
 def norm_id(model_id):
@@ -136,7 +140,7 @@ def norm_id(model_id):
 def probe(selector):
     try:
         r = subprocess.run(["omp", "-p", "--model", selector, "Reply with only the word OK"],
-                           capture_output=True, text=True, timeout=120)
+                           capture_output=True, text=True, timeout=120, env=CLEAN_ENV)
     except subprocess.TimeoutExpired:
         return False
     return r.returncode == 0 and "OK" in r.stdout
@@ -163,13 +167,10 @@ def step_models(overrides, check):
             chosen[role] = overrides[role]
             say("ok", f"{role}: {chosen[role]} (given)")
             continue
-        ranked = []
-        for pref in prefs:
-            ms = [m for m in models if norm_id(m["id"]) == pref]
-            ms.sort(key=lambda m: (m["provider"] != "anthropic", m["provider"]))
-            ranked += ms
+        ranked = [m for pref in prefs for m in models if norm_id(m["id"]) == pref]
         if not ranked:
-            say("FAIL", f"{role}: no Claude model from {prefs} in `omp models`; log in to Anthropic in omp first")
+            say("FAIL", f"{role}: no anthropic/ model from {prefs} in `omp models`; "
+                        "log in with your Claude subscription first: omp login")
             continue
         for m in ranked[:4]:
             sel = f"{m['selector']}:{pick_effort(effort, m.get('thinking') or [])}"
@@ -195,7 +196,9 @@ def default_rc():
 
 
 def step_alias(models, rc, name, check):
-    line = (f"alias {name}='omp --model {models['default']} --smol {models['smol']} --slow {models['slow']}'")
+    unset = " ".join(f"-u {k}" for k in PROXY_ENV)
+    line = (f"alias {name}='env {unset} omp --model {models['default']} "
+            f"--smol {models['smol']} --slow {models['slow']}'")
     block = f"{BLOCK_START}\n{line}\n{BLOCK_END}\n"
     text = rc.read_text() if rc.exists() else ""
     pattern = re.compile(re.escape(BLOCK_START) + r".*?" + re.escape(BLOCK_END) + r"\n?", re.S)
