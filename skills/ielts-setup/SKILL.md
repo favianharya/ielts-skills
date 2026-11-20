@@ -36,12 +36,12 @@ Before running it, tell the user what will change and get a yes:
 
 - links in `~/.claude/skills/` if Claude Code is installed;
 - two official PDFs downloaded to `~/.ielts/official/`;
-- if omp is installed: a few one-word test calls to find which Claude models answer here (best first: Opus 5.5 / 5 / 4.8 for scoring, Sonnet 5.5 / 5 / 4.6 for coaching, Haiku 5.5 / 4.5 for drills);
+- if omp is installed: a few one-word test calls to find which `anthropic/` models answer through the user's own Anthropic login (best first: Opus 5.5 / 5 / 4.8 for scoring, Sonnet 5.5 / 5 / 4.6 for coaching, Haiku 5.5 / 4.5 for drills). Other providers (gateways, proxies, OpenAI) are never used, and `ANTHROPIC_BASE_URL` / `ANTHROPIC_AUTH_TOKEN` / `ANTHROPIC_API_KEY` are removed for the test calls and in the alias, so a proxy set in the shell cannot reroute requests;
 - a marked block in the shell rc file (`~/.zshrc` for zsh), backed up first:
 
 ```
 # >>> ielts-skills (managed by ielts-setup; re-run setup to change) >>>
-alias ielts='omp --model <sonnet>:medium --smol <haiku>:low --slow <opus>:high'
+alias ielts='env -u ANTHROPIC_BASE_URL -u ANTHROPIC_AUTH_TOKEN -u ANTHROPIC_API_KEY omp --model <sonnet>:medium --smol <haiku>:low --slow <opus>:high'
 # <<< ielts-skills <<<
 ```
 
@@ -56,7 +56,7 @@ Then run `python3 <this skill>/scripts/setup.py`. Options:
 
 Why these roles: scoring needs the strongest model at high effort, and must stay on one model so calibration offsets mean something; coaching is fine on a mid model at medium; drills and vocabulary reviews need fast replies at low effort. Claude Code has no roles: tell the user to use `/model` (Opus when pasting work for a score, Sonnet otherwise, Haiku for drills).
 
-On `FAIL`: "not found" means step 1 did not run; "no Claude model" means the user must log in to Anthropic in omp (`/login`) and re-run; "already defined" means pick `--alias-name`.
+On `FAIL`: "not found" means step 1 did not run; "no anthropic/ model" means the user must log in with their Claude account in omp (`omp login`, or `/login` inside omp) and re-run; "already defined" means pick `--alias-name`.
 
 ## 4. Learner intake (when setup reports no profile)
 

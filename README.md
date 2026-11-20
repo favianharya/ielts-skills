@@ -22,10 +22,10 @@ python3 ~/.agents/skills/ielts-setup/scripts/setup.py --check   # report only
 python3 ~/.agents/skills/ielts-setup/scripts/setup.py           # apply
 ```
 
-With the omp coding agent, setup tests which Claude models answer on your machine and writes a managed alias block to `~/.zshrc` (backed up first):
+With the omp coding agent, setup tests which Claude models answer through your own Anthropic login (`omp login`, e.g. a Claude subscription) and writes a managed alias block to `~/.zshrc` (backed up first). Only `anthropic/` models are used, and the alias drops `ANTHROPIC_BASE_URL` / `ANTHROPIC_AUTH_TOKEN` / `ANTHROPIC_API_KEY` so a proxy or company gateway configured in your shell cannot reroute IELTS sessions:
 
 ```bash
-alias ielts='omp --model anthropic/claude-sonnet-5-5:medium --smol anthropic/claude-haiku-5-5:low --slow anthropic/claude-opus-5-5:high'
+alias ielts='env -u ANTHROPIC_BASE_URL -u ANTHROPIC_AUTH_TOKEN -u ANTHROPIC_API_KEY omp --model anthropic/claude-sonnet-5-5:medium --smol anthropic/claude-haiku-5-5:low --slow anthropic/claude-opus-5-5:high'
 ```
 
 Use `slow` (strongest model, high effort) when you paste an essay or speaking transcript for a score; keep scoring on one model so calibration stays meaningful. Use `smol` for drills and vocabulary reviews, and the default for coaching. In Claude Code, switch with `/model` instead.
